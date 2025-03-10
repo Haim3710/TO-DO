@@ -17,6 +17,18 @@ func main() {
         log.Printf("Error loading .env file: %v", err)
         log.Fatal("Make sure the .env file exists and is accessible")
     }
+       // Читаем переменные окружения
+    dbHost := os.Getenv("DB_HOST")
+    dbPort := os.Getenv("DB_PORT")
+    dbUsername := os.Getenv("DB_USERNAME")
+    dbPassword := os.Getenv("DB_PASSWORD")
+    dbName := os.Getenv("DB_NAME")
+
+    // Формируем строку подключения
+    connStr := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
+        dbHost, dbPort, dbUsername, dbPassword, dbName)
+
+	
     // Инициализация базы данных
     if err := database.InitDB(); err != nil {
         log.Fatal(err)
